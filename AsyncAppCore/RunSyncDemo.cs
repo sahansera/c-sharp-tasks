@@ -2,22 +2,20 @@
 
 namespace AsyncAppCore
 {
-    public class RunSyncDemo
+    public static class RunSyncDemo
     {
-        public void Start()
+        public static List<WebsiteDataModel> Start()
         {
-            RunDownloadSync();
-        }
-
-        private void RunDownloadSync()
-        {
-            List<string> websites = Utils.PrepData();
+            var websites = Utils.PrepData();
+            var output = new List<WebsiteDataModel>();
 
             foreach (string site in websites)
             {
-                var results = Utils.DownloadWebsite(site);
-                Utils.ReportWebsiteInfo(results);
+                var result = Utils.DownloadWebsite(site);
+                output.Add(result);
             }
+
+            return output;
         }
     }
 }
