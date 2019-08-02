@@ -18,32 +18,46 @@ namespace AsyncWpfApp
 
         private void SyncBtn_Click(object sender, RoutedEventArgs e)
         {
-            outputTxt.Text = "Sync Task Running...\n";
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            ClearOutput();
+            ReportOutput("Sync Task Running...\n");
 
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             RunDownloadSync();
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
 
-            outputTxt.Text += "Sync Task Stopped...\n";
-            outputTxt.Text += $"Elapsed Time: {elapsedMs}\n";
+            ReportOutput("Sync Task Stopped...\n");
+            ReportOutput($"Elapsed Time: {elapsedMs}\n");
 
         }
 
         private async void AsyncBtn_Click(object sender, RoutedEventArgs e)
         {
-            outputTxt.Text = "Async Task Running...\n";
+            ClearOutput();
+            ReportOutput("Async Task Running...\n");
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             await RunDownloadAsync();
-            outputTxt.Text += "Async Task Stopped...\n";
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+            ReportOutput("Async Task Stopped...\n");
+            ReportOutput($"Elapsed Time: {elapsedMs}\n");
 
         }
 
         private async void AsyncParallelBtn_Click(object sender, RoutedEventArgs e)
         {
-            outputTxt.Text = "Async Parallel Running...\n";
-            await RunDownloadParallelAsync();
-            outputTxt.Text += "Async Parallel Stopped...\n";
+            ClearOutput();
+            ReportOutput("Async Parallel Running...\n");
 
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            await RunDownloadParallelAsync();
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+            ReportOutput("Async Parallel Stopped...\n");
+            ReportOutput($"Elapsed Time: {elapsedMs}\n");
         }
 
         private void RunDownloadSync()
@@ -100,6 +114,16 @@ namespace AsyncWpfApp
                 System.Diagnostics.Debug.WriteLine(e);
             }
 
+        }
+
+        private void ClearOutput()
+        {
+            outputTxt.Text = "";
+        }
+
+        private void ReportOutput(string output)
+        {
+            outputTxt.Text += output;
         }
 
     }
