@@ -15,7 +15,6 @@ namespace AsyncAppCore
                 var result = await Task.Run(() => Utils.DownloadWebsite(site));
                 output.Add(result);
             }
-
             return output;
         }
     }
