@@ -11,8 +11,7 @@ namespace AsyncUsingTasks
             Console.WriteLine("Fetching data - SYNC!");
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            var syncDemo = new RunSyncDemo();
-            syncDemo.Start();
+            var output = RunSyncDemo.Start();
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -22,11 +21,12 @@ namespace AsyncUsingTasks
             Console.WriteLine("========================");
 
             Console.WriteLine("Fetching data - ASYNC!");
-            var asyncDemo = new RunAsyncDemo();
 
             Task.Run(async () =>
             {
-                await asyncDemo.Start();
+                var output = await RunAsyncDemo.Start();
+                Console.WriteLine("Fetching data - ASYNC! Done");
+
             });
         }
     }
